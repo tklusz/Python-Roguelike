@@ -4,7 +4,7 @@
 * The latest version of Python 3 - [available here.](https://www.python.org/downloads/)
 * Libtcodpy -  [available here.](https://github.com/libtcod/python-tcod)
 * Libtcodpy documentation can be found [here.](https://python-tcod.readthedocs.io/en/latest/libtcodpy.html)
-* A text editor or IDE (Covered in part 0).
+* A text editor or IDE.
 * Basic programming knowledge - methods, variables, loops, if statements, etc.
 
 ### Installation
