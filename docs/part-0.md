@@ -39,7 +39,7 @@ I am using Atom, a smart text editor, for this tutorial. It is similar to Sublim
 
 It is recommended to use Atom for this project as it has useful GitHub and Python integration (such as pushing to GitHub and running Python scripts right from your text editor).  
 
-##### Configuring Atom - Project folder.
+#### Configuring Atom - Project folder.
 Note: If you plan to create a GitHub repository, skip this step for now then come back after reading the "Setting up a GitHub Repository" section.
 
 Once Atom is open for the first time, you should see a welcome screen, which you can close, along with all of the other tabs that open.
@@ -62,7 +62,7 @@ Create another folder in your project folder called "src". Right click the src f
 
 After that is complete, the project folder is ready.
 
-##### Configuring Atom - Packages.
+#### Configuring Atom - Packages.
 Once your project folder is finished, go to the packages setting on the top menu bar, click "Command Palette" then "toggle" (Can also use Ctrl+Shift+P on Windows).
 
 ![](/docs/images/part-0/command-pallete.PNG)
@@ -75,7 +75,7 @@ After your configuration is complete, you should be able to run Python scripts i
 
 Once this step is complete (if you're on Windows), you are finished with the required configuration. If you would like to set up a GitHub repository for your project, continue to the "Setting up a GitHub Repository" section.
 
-###### Additional Atom configuration - macOS and Linux.
+##### Additional Atom configuration - macOS and Linux.
 To properly configure atom-python-run on a Linux distribution or macOS,
 click "settings" on the "atom-python-run" package, and set the F5 command to what's shown in the screenshot below (changing python to python3).
 
