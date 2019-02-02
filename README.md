@@ -2,6 +2,8 @@
 A tutorial for Python 3 + libtcodpy inspired by the tutorial   made in 2017.
 
 ### Improvements / Changes
+Note that this tutorial is still in progress, and code in the earlier tutorial sections may change over time. 
+
 This tutorial will be similar to the 2017 version with some noteworthy changes.
 
 * More focus on using Object Oriented Programming practices.
