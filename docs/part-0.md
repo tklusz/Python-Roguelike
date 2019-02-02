@@ -35,9 +35,11 @@ Download the latest source code release of libtcodpy [here.](https://github.com/
 
 
 #### Text editor or IDE
-I am using Atom, a "smart" text editor, for this tutorial. It is similar to Sublime Text, but it's created by the same people behind GitHub. The download page can be found [here.](https://atom.io/)
+Using a smart text editor or IDE while programming can aid you in finding mistakes, spelling errors and remembering class methods just to name a few.
 
-It is recommended to use Atom for this project as it has useful GitHub and Python integration.  
+I am using Atom, a smart text editor, for this tutorial. It is similar to Sublime Text, but it's created by the same people behind GitHub. The download page can be found [here.](https://atom.io/)
+
+It is recommended to use Atom for this project as it has useful GitHub and Python integration (such as pushing to GitHub and running Python scripts right from your text editor).  
 
 ##### Configuring Atom - Project folder.
 Note: If you plan to create a GitHub repository, skip this step for now then come back after reading the "Setting up a GitHub Repository" section.
