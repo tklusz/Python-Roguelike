@@ -24,17 +24,18 @@ def main():
     root_console = consoles[0]
     default_console = consoles[1]
 
+    # Creating the mapping
+    map = Map(MAP_WIDTH, MAP_HEIGHT, 6, 4, 20, 10, 50)
+    player_starting_pos = map.createRoom()
+
     # Creating all of our entities
-    renderer.createEntities(default_console)
+    renderer.createEntities(default_console, player_starting_pos)
 
     tile_colors = {
-        'dark_wall' : libtcod.Color(0,0,100),
+        'dark_wall' : libtcod.Color(0,0,50),
         'dark_ground' : libtcod.Color(50,50,150)
     }
 
-    map = Map(MAP_WIDTH, MAP_HEIGHT)
-
-    # Running function that sets up the player's starting position and '@' symbol.
     player = renderer.ENTITIES[0]
 
     # Setting up keyboard and mouse inputs.

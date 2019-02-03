@@ -9,12 +9,13 @@ import engine
 ENTITIES = []
 
 # Creating entities
-def createEntities(default_console):
+def createEntities(default_console, player_position):
 
     # Object has x-position, y-position, console, representitve character and color.
     npc = Entity(int(engine.SCREEN_WIDTH/2)-4, int(engine.SCREEN_HEIGHT/2), default_console, '@', libtcod.red)
+
     # Object has x-position, y-position, console, representitve character and color.
-    player = Entity(int(engine.SCREEN_WIDTH/2), int(engine.SCREEN_HEIGHT/2), default_console, '@', libtcod.white)
+    player = Entity(player_position[0], player_position[1], default_console, '@', libtcod.white)
 
     ENTITIES.append(player)
     ENTITIES.append(npc)
@@ -37,7 +38,6 @@ def performActions(action, map, entity):
 
         if not map.isBlockingMovement(positions[0], positions[1]):
             # Updating the new relative position.
-            print(positions)
             entity.updatePosition(positions)
 
 def renderMap(console, map, tile_colors):
