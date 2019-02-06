@@ -1,17 +1,12 @@
-# Python Roguelike Tutorial 2019
-A tutorial for Python 3 + libtcodpy inspired by the tutorial   made in 2017.
+# Python Roguelike
+A Roguelike made with Python 3 + libtcodpy inspired by the tutorial made in 2017.
 
 ### Improvements / Changes
-Note that this tutorial is still in progress, and code in the earlier tutorial sections may change over time. 
+Note that this project is still in development, and code may change over time.
 
-This tutorial will be similar to the 2017 version with some noteworthy changes.
+The following are some noteworthy changes to the tutorial version:
 
 * More focus on using Object Oriented Programming practices.
 * Special focus to topics such a encapsulation and code reusability (modularization).
 * Every piece of code will be commented in-line.
-* More explanation as to what each line of code does and why we are using it.
-* Tutorial for how to host your project on GitHub (basic Git tutorial).
-
-### The Tutorial
-*  [Part 0 - Environment.](/docs/part-0.md)
-*  [Part 1 - It's Alive!](/docs/part-1.md)
+* Better code explanation and documentation.
