@@ -20,10 +20,10 @@ class Map:
         self.max_fails = max_fails
 
         # Every time we generate a map object, we create a new set of tiles for the map.
-        self.tiles = self.initTiles()
+        self.tiles = self.init_tiles()
 
     # Generating all of our tiles
-    def initTiles(self):
+    def init_tiles(self):
 
         # Generating a 2 dimentional array of tiles.
         # tiles[0][0] will be the top left corner, and so on.
@@ -33,7 +33,7 @@ class Map:
         return tiles
 
     # Actually generating the room tiles.
-    def generateRoomTiles(self, room):
+    def generate_room_tiles(self, room):
 
         # Looping through each tile in our rectangle and setting them to not block.
         # We are adding 1 as the walls for the room take up 1 tile, and remain blocking.
@@ -44,7 +44,7 @@ class Map:
                 self.tiles[x][y].blocking_sight = False
 
     # Create rooms for the map. Also generates the player starting position.
-    def createRoom(self):
+    def create_rooms(self):
 
         rooms = []
         num_rooms = 0
@@ -52,12 +52,10 @@ class Map:
 
         rooms_to_create = randint(self.min_rooms, self.max_rooms)
 
-        print(rooms_to_create)
-
         while num_rooms < rooms_to_create:
 
             if(failed_attempts == self.max_fails):
-                self.createRoom()
+                self.create_room()
 
             rand_width = randint(self.min_room_size, self.max_room_size)
             rand_height = randint(self.min_room_size, self.max_room_size)
@@ -72,20 +70,20 @@ class Map:
                      failed_attempts+=1
                      break;
             else:
-                self.generateRoomTiles(rand_room)
-                [this_center_x, this_center_y] = rand_room.getCenter()
+                self.generate_room_tiles(rand_room)
+                [this_center_x, this_center_y] = rand_room.get_center()
 
                 if num_rooms == 0:
                     player_starting_coords = [this_center_x, this_center_y]
                 else:
-                    [other_center_x, other_center_y] = rooms[num_rooms - 1].getCenter()
+                    [other_center_x, other_center_y] = rooms[num_rooms - 1].get_center()
 
                     if randint(0,1) == 1:
-                        self.createHorziontalTunnnel(other_center_x, this_center_x, other_center_y)
-                        self.createVerticalTunnel(other_center_y, this_center_y, this_center_x)
+                        self.create_horziontal_tunnnel(other_center_x, this_center_x, other_center_y)
+                        self.create_vertical_tunnel(other_center_y, this_center_y, this_center_x)
                     else:
-                        self.createVerticalTunnel(other_center_y, this_center_y, this_center_x)
-                        self.createHorziontalTunnnel(other_center_x, this_center_x, other_center_y)
+                        self.create_vertical_tunnel(other_center_y, this_center_y, this_center_x)
+                        self.create_horziontal_tunnnel(other_center_x, this_center_x, other_center_y)
 
                 rooms.append(rand_room)
                 num_rooms += 1
@@ -94,7 +92,7 @@ class Map:
 
 
     # Used to create tunnels horizontally
-    def createHorziontalTunnnel(self, starting_x, ending_x, static_y):
+    def create_horziontal_tunnnel(self, starting_x, ending_x, static_y):
 
         # We are changing as many tiles as the difference between starting and ending x positions.
         # Note that starting x could be to the right side of ending x (smaller number)
@@ -109,13 +107,13 @@ class Map:
             self.tiles[x_position][static_y].blocking_sight = False
 
     # Used to create tunnels vertically.
-    # Behaves almost the same as createHorizontalTunnels, but the x is always the same.
-    def createVerticalTunnel(self, starting_y, ending_y, static_x):
+    # Behaves almost the same as create_horizontal_tunnels, but the x is always the same.
+    def create_vertical_tunnel(self, starting_y, ending_y, static_x):
         for y_position in range( min(starting_y,ending_y) , max(starting_y, ending_y) + 1):
             self.tiles[static_x][y_position].blocking_movement = False
             self.tiles[static_x][y_position].blocking_sight = False
 
 
     # Determine if our tile is blocking movement.
-    def isBlockingMovement(self, x, y):
+    def is_blocking_movement(self, x, y):
         return self.tiles[x][y].blocking_movement

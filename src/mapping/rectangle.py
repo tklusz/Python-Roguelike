@@ -18,7 +18,7 @@ class Rectangle:
 
     # Retrieves the center position of the rectangle.
     # Note that this might not be the direct center if the sides are odd.
-    def getCenter(self):
+    def get_center(self):
 
         #  a = (0,1). b = (7,5)
         #
