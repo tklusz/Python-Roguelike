@@ -1,6 +1,7 @@
 # Class responsable for storing all active entities.
 class EntityStorage:
 
+    # Creates an EntityStorage class, adding the list as an attribute.
     def __init__(self, entityList):
         self.entityList = entityList
 

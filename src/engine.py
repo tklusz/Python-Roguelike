@@ -20,7 +20,7 @@ def main():
     default_console = screen.create_console(screen.screen_width, screen.screen_height)
 
     # Creating the map.
-    map = Map(screen.screen_width, screen.screen_height, 6, 4, 20, 10, 50)
+    map = Map(screen.screen_width, screen.screen_height, 5, 3, 20, 10)
     player_starting_pos = map.create_rooms()
 
     # Creating all of our entities

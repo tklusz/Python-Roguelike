@@ -9,6 +9,7 @@ class Screen:
         self.title = window_title
         self.font = font
 
+    # Generating the root console (only should happen one time).
     def create_root_console(self):
         self.root_console = libtcod.console_init_root(self.screen_width, self.screen_height, self.title, False)
 
