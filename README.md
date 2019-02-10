@@ -1,12 +1,17 @@
 # Python Roguelike
-A Roguelike made with Python 3 + libtcodpy inspired by the tutorial made in 2017.
+A Roguelike made with Python 3 + libtcodpy.
 
-### Improvements / Changes
-Note that this project is still in development, and code may change over time.
+### Main Features
+Note that this project is still in development, and code will change over time.
 
-The following are some noteworthy changes to the tutorial version:
+The following are some noteworthy features and components:
 
-* More focus on using Object Oriented Programming practices.
-* Special focus to topics such a encapsulation and code reusability (modularization).
-* Every piece of code will be commented in-line.
-* Better code explanation and documentation.
+* Focus on using Object Oriented Programming practices.
+* Special attention to topics such a encapsulation and code reusability (modularization).
+* Every piece of code will be commented in block comments.
+* Code explanation and documentation.
+* Code released in numerous "parts" (as branches) to track logical divisions of code.
+* Striving to use PEP8 standards as much as possible - will improve as project progresses.
+
+### Inspiration
+This project was inspired by a tutorial created by @TStand90 in 2017.  

@@ -6,6 +6,7 @@ from random import randint
 # Class used to generate a map.
 class Map:
 
+
     # Constructor
     def __init__(self, width, height, max_rooms, min_rooms, max_room_size, min_room_size):
         """
@@ -43,7 +44,7 @@ class Map:
         # for the map.
         self.tiles = self.init_tiles()
 
-    # Creating a 2d array representing the map.
+    # Creating and returning a 2d array representing the map.
     def init_tiles(self):
 
         # Output:
@@ -65,7 +66,7 @@ class Map:
         # tiles[0][0] will be the top left corner, and so on.
         # Setting Tile(True) means that every tile is blocking movement
         # and sight by default.
-        tiles = [ [Tile(True) for y in range(self.height)]
+        tiles = [[Tile(True) for y in range(self.height)]
                 for x in range(self.width)]
 
         # The 2d array that is returned will be the same size as the map,
@@ -96,11 +97,13 @@ class Map:
         for x in range(room.x_pos_top + 1, room.x_pos_bot):
             for y in range(room.y_pos_top + 1, room.y_pos_bot):
 
-                # Changing this map's tiles to not blocking
+                # Changing this map's tiles to not blocking at each tile in
+                # the room.
                 self.tiles[x][y].blocking_movement = False
                 self.tiles[x][y].blocking_sight = False
 
-    # Create rooms for the map. Also generates the player starting position.
+    # Create rooms for the map. Also generates and returns the
+    # player's starting position.
     def create_rooms(self):
 
         # List of currently generated rooms.
@@ -153,6 +156,7 @@ class Map:
         # Returning player's coordinates that will be used to place the player.
         return player_starting_coords
 
+
     # Generates a single room based on the Map object's attributes.
     def generate_single_room(self):
 
@@ -196,14 +200,14 @@ class Map:
         # max(5,10) + 1 -> 11
         # Looping from 5 to 11. Drawing 7 tiles.
         # The y position is always the same, because we are staying on a horizontal line.
-        for x_position in range( min(starting_x,ending_x) , max(starting_x, ending_x) + 1):
+        for x_position in range(min(starting_x,ending_x) , max(starting_x, ending_x) + 1):
             self.tiles[x_position][static_y].blocking_movement = False
             self.tiles[x_position][static_y].blocking_sight = False
 
     # Used to create tunnels vertically.
     # Behaves almost the same as create_horizontal_tunnels, but the x is always the same.
     def create_vertical_tunnel(self, starting_y, ending_y, static_x):
-        for y_position in range( min(starting_y,ending_y) , max(starting_y, ending_y) + 1):
+        for y_position in range(min(starting_y,ending_y) , max(starting_y, ending_y) + 1):
             self.tiles[static_x][y_position].blocking_movement = False
             self.tiles[static_x][y_position].blocking_sight = False
 

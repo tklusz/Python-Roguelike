@@ -1,18 +1,20 @@
-# Importing libtcod and our other python files.
 import tcod as libtcod
 import inputHandler
 import renderer
+
 from screen import Screen
 from entities.entity import Entity
 from mapping.map import Map
 
-# Main function that runs first.
+
+# First method. This is the python file that should be ran (on the cmd line).
 def main():
+
 
     # Setting up screen information.
     screen = Screen(80, 45, "Python Roguelike", "../fonts/arial10x10.png")
 
-    # Setting up font for the console
+    # Setting up font for the console.
     screen.setup_font()
 
     # Creating 2 consoles, the root console then the default console.
@@ -23,7 +25,7 @@ def main():
     map = Map(screen.screen_width, screen.screen_height, 5, 3, 20, 10)
     player_starting_pos = map.create_rooms()
 
-    # Creating all of our entities
+    # Creating all of our entities.
     entityList = renderer.create_entities(default_console, player_starting_pos)
 
     # Setting player as the first entity in the list.
@@ -40,7 +42,7 @@ def main():
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
-    # While the window is open
+    # While the window is open:
     while not libtcod.console_is_window_closed():
 
         # Gets the user input.

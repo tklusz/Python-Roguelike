@@ -3,6 +3,7 @@ import tcod as libtcod
 # Class for entities.
 class Entity:
 
+
     # Set the x position, y position, console the character should appear on,
     # representitive character ( e.g. @ ) and color.
     def __init__(self, x_pos, y_pos, console, char, color):
@@ -43,7 +44,6 @@ class Entity:
 
         # Placing the object in the console at the new coordinates.
         self.place_entity()
-
 
     # Place an entity in the world. Note that this doesn't overwrite it's last position.
     def place_entity(self):

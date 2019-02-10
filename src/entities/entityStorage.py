@@ -1,11 +1,13 @@
 # Class responsable for storing all active entities.
 class EntityStorage:
 
-    # Creates an EntityStorage class, adding the list as an attribute.
+
+    # Entities are stored as a list (entityList) as an attribute of the object.
+    # This may be moved to a different data structure in future (such as a map).
     def __init__(self, entityList):
         self.entityList = entityList
 
-    # Returns the current entity list.
+    # Returns the current list of active entities.
     def get_list(self):
         return self.entityList
 

@@ -1,5 +1,6 @@
 import tcod as libtcod
 
+
 # Handles user input.
 def handle_input(key,mouse):
 

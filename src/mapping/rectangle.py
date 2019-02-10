@@ -2,25 +2,27 @@
 # This is used for carving out rooms in the map generator.
 class Rectangle:
 
+
     # Rectangle(1,2,2,3)
     #
-    #    (x_pos_top, y_pos_top) - Starting position.
-    #    (1,2)
-    #
-    #                     (3,5)
-    #                     (x_pos_bot,y_pos_bot) - Ending position.
+    #     (x_pos_top, y_pos_top) - Starting coordinate.
+    #     (1,2)  #   #   #   #
+    #       #                #
+    #       #   #    #   #  (3,5)
+    #                       (x_pos_bot,y_pos_bot) - Ending coordinate.
 
     def __init__(self, x_coordinate, y_coordinate, width, height):
         self.x_pos_top = x_coordinate
         self.y_pos_top = y_coordinate
+
         self.x_pos_bot = x_coordinate + width
         self.y_pos_bot = y_coordinate + height
 
-    # Retrieves the center position of the rectangle.
+    # Returns the center position of the rectangle.
     # Note that this might not be the direct center if the sides are odd.
     def get_center(self):
 
-        #  a = (0,1). b = (7,5)
+        #  a = (1,1). b = (7,5)
         #
         #   a######   center_x_coord = a.x_position + b.x_position / 2
         #   #     #                        (1)      +    (7)       / 2 = 4
@@ -38,6 +40,7 @@ class Rectangle:
     def intersect(self, other_rectangle):
 
         # We require all 4 of these conditions to be true for an overlap.
+        # Left as separate if statements to increase readability.
         if self.x_pos_top <= other_rectangle.x_pos_bot:
             if self.x_pos_bot >= other_rectangle.x_pos_top:
                 if self.y_pos_top <= other_rectangle.y_pos_bot:
