@@ -1,101 +1,61 @@
-# Importing libtcod and our other python files.
 import tcod as libtcod
 import inputHandler
-import moveable
+import renderer
 
-# Setting up global variables for screen info.
-SCREEN_WIDTH = 80
-SCREEN_HEIGHT = 50
-FONT = '../fonts/arial10x10.png'
-WINDOW_TITLE = "Libtcod RL"
+from screen import Screen
+from entities.entity import Entity
+from mapping.map import Map
 
-# Main function that runs first.
+
+# First method. This is the python file that should be ran (on the cmd line).
 def main():
 
+
+    # Setting up screen information.
+    screen = Screen(80, 45, "Python Roguelike", "../fonts/arial10x10.png")
+
+    # Setting up font for the console.
+    screen.setup_font()
+
     # Creating 2 consoles, the root console then the default console.
-    consoles = consoleSetup()
+    screen.create_root_console()
+    default_console = screen.create_console(screen.screen_width, screen.screen_height)
 
-    root_console = consoles[0]
-    default_console = consoles[1]
+    # Creating the map.
+    map = Map(screen.screen_width, screen.screen_height, 5, 3, 20, 10)
+    player_starting_pos = map.create_rooms()
 
-    # Running function that sets up the player's starting position and '@' symbol.
-    player = createPlayer(default_console)
+    # Creating all of our entities.
+    entityList = renderer.create_entities(default_console, player_starting_pos)
+
+    # Setting player as the first entity in the list.
+    # Player is always assumed to be the first entity in the entity list.
+    player = entityList.get_list()[0]
+
+    # Setting up tile colors - will be moved to a class in future.
+    tile_colors = {
+        'dark_wall' : libtcod.Color(0,0,50),
+        'dark_ground' : libtcod.Color(50,50,150)
+    }
 
     # Setting up keyboard and mouse inputs.
     key = libtcod.Key()
     mouse = libtcod.Mouse()
 
-    # While the window is open
+    # While the window is open:
     while not libtcod.console_is_window_closed():
 
         # Gets the user input.
-        action = inputHandler.handleInput(key,mouse)
+        action = inputHandler.handle_input(key,mouse)
+
+        # Renders the map using tile colors
+        renderer.render_map(default_console, map, tile_colors)
 
         # Performs action based on user input.
-        doPlayerActions(action, player)
+        renderer.perform_actions(action, map, player)
 
-        # Performs console runtime functions (blitting, flushing etc)
-        consoleRuntime(default_console, root_console)
-
-
-
-# Setting up the @ Player.
-def createPlayer(default_console):
-
-    # Getting default starting position based on window size.
-    player_x = int(SCREEN_WIDTH/2)
-    player_y = int(SCREEN_HEIGHT/2)
-
-    # Creating player based on moveable object.
-    # Object has x-position, y-position, console and representitve character.
-    player = moveable.Moveable(player_x, player_y, default_console, '@')
-
-    # Placing the player on the screen on the coordinates specified earlier.
-    player.placeEntity()
-
-    # Returns the player object after it has been created
-    return player
-
-# Function that creates the console_set_default_foreground window for the game.
-def consoleSetup():
-
-    # Setting our font, setting to greyscale, also setting the layout to TCOD
-    libtcod.console_set_custom_font(FONT, libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_TCOD)
-
-    # Creating the root console.
-    root_console = libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, False)
-
-    # Creating a main console that gets overlayed on top of the root console.
-    default_console = libtcod.console_new(SCREEN_WIDTH, SCREEN_HEIGHT)
-
-    # Setting default console foreground color to white.
-    libtcod.console_set_default_foreground(default_console, libtcod.white)
-
-
-    return [root_console, default_console]
-
-# Function that modifies console during runtime.
-def consoleRuntime(default_console, root_console):
-
-    # Blitting the console
-    libtcod.console_blit(default_console, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, root_console, 0, 0)
-
-    # Redraw console
-    libtcod.console_flush()
-
-# Gets the user's action
-def doPlayerActions(action, moveable_object):
-
-    move = action.get('move')
-
-    if move:
-        coordinates = moveable_object.getPos()
-        dx, dy = move
-        coordinates[0] += dx
-        coordinates[1] += dy
-
-        moveable_object.updatePosition(coordinates)
-
+        # Performs console runtime functions (blitting, flushing, etc)
+        renderer.console_runtime(default_console, entityList, screen)
 
 
 # Main function only gets ran if this file is called.
