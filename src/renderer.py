@@ -8,69 +8,48 @@ from entities.entityStorage import EntityStorage
 from mapping.map import Map
 
 
-# Creating entities
-def create_entities(default_console, player_position):
+# Rendering map based on FOV.
+def render_fov_map(console, map, fov_map):
 
-    # Creating entity list
-    entityList = []
+    # Looping through each tile in our map.
+    for x in range(map.width):
+        for y in range(map.height):
 
-    # Object has x-position, y-position, console, representitve character and color.
-    # Player object should always be in the 0th index of the EntityStorage list.
-    player = Entity(player_position[0], player_position[1], default_console, '@', libtcod.white)
+            # This is deprecated. Switch to map_object.fov() in future.
+            visible = libtcod.map_is_in_fov(fov_map, x, y)
 
-    # Appending the player to the entity list.
-    entityList.append(player)
-
-    # Creating and returning an EntityList object that stores all active entities.
-    return EntityStorage(entityList)
-
-# Performs an entity's actions based on the action event.
-def perform_actions(action, map, entity):
-
-    # Getting a move event from our eventhandler.
-    move_event = action.get('move')
-
-    # If the console recieved a move event.
-    if (move_event):
-
-        # Getting the new absolute x and y positions from the event.
-        x_update = move_event[0]
-        y_update = move_event[1]
-
-        # Getting entity's positions.
-        positions = entity.get_position()
-        positions[0] += x_update
-        positions[1] += y_update
-
-        # Only allow the entity to move if the map isn't blocking movement.
-        if not map.is_blocking_movement(positions[0], positions[1]):
-
-            # Updating the new absolute position.
-            entity.update_position(positions)
-
-# Rendering the map using tile colors specified.
-def render_map(console, map, tile_colors):
-
-    # For each tile in the map:
-    for y in range(map.height):
-        for x in range(map.width):
-            # Tile is a wall if it's blocking sight.
+            # If the tile at the current position is blocking sight, it's a wall.
             wall = map.tiles[x][y].blocking_sight
 
-            # Set walls to be the 'dark_wall' color specified in tile_colors.
-            if wall:
-                libtcod.console_set_char_background(console, x, y, tile_colors.get('dark_wall'), libtcod.BKGND_SET)
-            # Set any other tile to be the 'dark_ground' color specified in
-            # tile_colors.
+            # This is a tile currently in our FOV.
+            if visible:
+                # Wall in our FOV.
+                if wall:
+                     libtcod.console_set_char_background(console, x, y, map.tile_colors.get('light_wall'), libtcod.BKGND_SET)
+                # Anything else in our FOV.
+                else:
+                    libtcod.console_set_char_background(console, x, y, map.tile_colors.get('light_ground'), libtcod.BKGND_SET)
+                # Change the tile so that it has been seen by the player before.
+                map.tiles[x][y].seen = True
+            # If this is a tile we have seen before.
+            elif map.tiles[x][y].seen:
+                # Wall outside our FOV.
+                if wall:
+                    libtcod.console_set_char_background(console, x, y, map.tile_colors.get('dark_wall'), libtcod.BKGND_SET)
+                # Anything else outside our FOV.
+                else:
+                    libtcod.console_set_char_background(console, x, y, map.tile_colors.get('dark_ground'), libtcod.BKGND_SET)
+            # These are tiles that haven't been seen yet (normally black).
             else:
-                libtcod.console_set_char_background(console, x, y, tile_colors.get('dark_ground'), libtcod.BKGND_SET)
+                libtcod.console_set_char_background(console, x, y, map.tile_colors.get('unseen'), libtcod.BKGND_SET)
+
 
 # Function that modifies console during runtime.
-def console_runtime(default_console, entityList, screen):
+def console_runtime(default_console, entity_list, screen, fov_map):
 
     # Placing each entity in our entity list.
-    for entity in entityList.get_list():
-        entity.place_entity()
+    for entity in entity_list.get_list():
+        entity.place_entity(fov_map)
 
     # Blitting the console
     screen.blit_to_root(default_console, 0, 0)

@@ -8,7 +8,8 @@ class Map:
 
 
     # Constructor
-    def __init__(self, width, height, max_rooms, min_rooms, max_room_size, min_room_size):
+    def __init__(self, width, height, max_rooms, min_rooms, max_room_size,
+                 min_room_size, tile_colors):
         """
         Parameters
         ----------
@@ -29,6 +30,8 @@ class Map:
             Minimum number of tiles a room takes up
             (horizontally or vertically).
             The actual number of rooms will be a random between min and max.
+        tile_colors: dictionary.
+            Dictionary of tile types and their associated color.
         """
 
         self.width = width
@@ -39,6 +42,8 @@ class Map:
 
         self.max_room_size = max_room_size
         self.min_room_size = min_room_size
+
+        self.tile_colors = tile_colors
 
         # Every time we generate a map object, we will also generate the tiles
         # for the map.

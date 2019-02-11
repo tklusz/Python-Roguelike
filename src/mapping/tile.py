@@ -11,3 +11,6 @@ class Tile:
             blocking_sight = blocking_movement
 
         self.blocking_sight = blocking_sight
+
+        # If this tile has been within the player's FOV before.
+        self.seen = False
